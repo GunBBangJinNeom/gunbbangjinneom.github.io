@@ -247,12 +247,13 @@ document.getElementById('back-btn').addEventListener('click', () => showView('ma
 fetch('data/about.json')
   .then(r => r.json())
   .then(data => {
-    ['geon', 'seungeun'].forEach(key => {
-      const el = document.getElementById(`about-${key}`);
-      if (!el || !data[key]) return;
-      el.querySelector('.about-photo').src    = data[key].photo;
-      el.querySelector('.about-name').textContent = data[key].name;
-      el.querySelector('.about-bio').textContent  = data[key].bio;
+    Object.values(data).forEach((person, i) => {
+      const els = document.querySelectorAll('.about-view');
+      const el  = els[i];
+      if (!el || !person) return;
+      el.querySelector('.about-photo').src            = person.photo;
+      el.querySelector('.about-name').textContent     = person.name;
+      el.querySelector('.about-bio').textContent      = person.bio;
     });
   });
 

@@ -16,14 +16,22 @@
     <span class="version-tag"></span>
   </div>
 
-  <!-- ── Menu ─────────────────────────────────────────── -->
+  <!-- ── Menu (Home) ──────────────────────────────────── -->
   <div id="menu-view" class="view"
        data-bg="assets/bg/menu/bg.png">
-    <nav class="menu-list">
-      <button class="menu-item" data-target="main-view">Exhibition</button>
-      <button class="menu-item" data-target="about-geon">About GEON</button>
-      <button class="menu-item" data-target="about-seungeun">About Seongeun</button>
+
+    <nav class="home-nav">
+      <span class="home-title">GS ARCHIVE</span>
+      <span class="home-nav-sep"></span>
+      <button class="home-nav-item" data-target="main-view">Exhibition</button>
+      <button class="home-nav-item" data-target="about-us">About Us</button>
     </nav>
+
+    <main class="home-main">
+      <img class="home-couple" src="" alt="couple" />
+      <p class="home-description"></p>
+    </main>
+
   </div>
 
   <!-- ── Exhibition: 왼쪽 월 탭 + 날짜 복도 ────────────── -->
@@ -77,28 +85,27 @@
 
   </div>
 
-  <!-- ── About GEON ────────────────────────────────────── -->
-  <div id="about-geon" class="view about-view"
-       data-bg="assets/bg/geon/bg.png">
-    <div class="about-content">
-      <img class="about-photo" src="" alt="GEON" />
-      <div class="about-text">
-        <p class="about-name"></p>
-        <p class="about-bio"></p>
-      </div>
-    </div>
-    <button class="section-back" data-target="menu-view">← menu</button>
-  </div>
+  <!-- ── About Us ─────────────────────────────────────── -->
+  <div id="about-us" class="view about-view"
+       data-bg="assets/bg/about/bg.png">
+    <div class="about-us-content">
 
-  <!-- ── About SeungEun ────────────────────────────────── -->
-  <div id="about-seungeun" class="view about-view"
-       data-bg="assets/bg/seungeun/bg.png">
-    <div class="about-content">
-      <img class="about-photo" src="" alt="SEUNGEUN" />
-      <div class="about-text">
-        <p class="about-name"></p>
-        <p class="about-bio"></p>
+      <div class="about-person">
+        <img class="about-photo" src="" alt="" />
+        <div class="about-text">
+          <p class="about-name"></p>
+          <p class="about-bio"></p>
+        </div>
       </div>
+
+      <div class="about-person">
+        <img class="about-photo" src="" alt="" />
+        <div class="about-text">
+          <p class="about-name"></p>
+          <p class="about-bio"></p>
+        </div>
+      </div>
+
     </div>
     <button class="section-back" data-target="menu-view">← menu</button>
   </div>

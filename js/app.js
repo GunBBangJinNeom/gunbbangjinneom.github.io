@@ -32,9 +32,9 @@ document.getElementById('enter-btn').addEventListener('click', () => {
   showView('menu-view');
 });
 
-// ─── Menu ──────────────────────────────────────────────────────────────────
+// ─── Menu (Home nav) ───────────────────────────────────────────────────────
 
-document.querySelectorAll('.menu-item').forEach(btn => {
+document.querySelectorAll('.home-nav-item').forEach(btn => {
   btn.addEventListener('click', () => showView(btn.dataset.target));
 });
 
@@ -266,18 +266,27 @@ fetch('data/version.json')
     document.querySelector('.version-tag').textContent = data.version;
   });
 
+// ─── Home ──────────────────────────────────────────────────────────────────
+
+fetch('data/home.json')
+  .then(r => r.json())
+  .then(data => {
+    document.querySelector('.home-couple').src          = data.couple_photo || '';
+    document.querySelector('.home-description').textContent = data.description || '';
+  });
+
 // ─── About ─────────────────────────────────────────────────────────────────
 
 fetch('data/about.json')
   .then(r => r.json())
   .then(data => {
+    const persons = document.querySelectorAll('.about-person');
     Object.values(data).forEach((person, i) => {
-      const els = document.querySelectorAll('.about-view');
-      const el  = els[i];
+      const el = persons[i];
       if (!el || !person) return;
-      el.querySelector('.about-photo').src            = person.photo;
-      el.querySelector('.about-name').textContent     = person.name;
-      el.querySelector('.about-bio').textContent      = person.bio;
+      el.querySelector('.about-photo').src        = person.photo;
+      el.querySelector('.about-name').textContent = person.name;
+      el.querySelector('.about-bio').textContent  = person.bio;
     });
   });
 

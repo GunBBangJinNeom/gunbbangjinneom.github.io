@@ -87,31 +87,81 @@ html, body {
   opacity: 0.22;
 }
 
-/* ─── Menu view ──────────────────────────────── */
+/* ─── Menu view (Home) ───────────────────────── */
 #menu-view {
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
 }
 
-.menu-list {
+/* 상단 nav (GS ARCHIVE 타이틀 + 탭 가로 배치) */
+.home-nav {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 32px;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  padding: 28px 28px 18px;
+  gap: 36px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.menu-item {
-  font-size: 16px;
-  letter-spacing: 0.3em;
+.home-title {
+  font-size: 18px;
+  letter-spacing: 0.45em;
+  margin-right: -0.45em;
   text-transform: uppercase;
-  opacity: 0.35;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.home-nav-sep {
+  width: 1px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+.home-nav-item {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  opacity: 0.3;
   padding: 0;
+  white-space: nowrap;
   transition: opacity 220ms ease;
 }
 
-.menu-item:hover {
+.home-nav-item:hover {
   opacity: 1;
+}
+
+/* 본문 영역 */
+.home-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  padding: 0 48px 48px;
+}
+
+.home-couple {
+  width: 220px;
+  height: 280px;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.82;
+  display: block;
+}
+
+.home-description {
+  font-size: 12px;
+  opacity: 0.42;
+  line-height: 2.4;
+  letter-spacing: 0.08em;
+  text-align: center;
+  white-space: pre-line;
 }
 
 /* ─── Section back button ─────────────────────── */
@@ -132,16 +182,22 @@ html, body {
   justify-content: center;
 }
 
-.about-content {
+.about-us-content {
+  display: flex;
+  flex-direction: column;
+  gap: 52px;
+}
+
+.about-person {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 56px;
+  gap: 48px;
 }
 
 .about-photo {
-  width: 240px;
-  height: 300px;
+  width: 200px;
+  height: 250px;
   object-fit: cover;
   object-position: center top;
   display: block;
@@ -152,12 +208,12 @@ html, body {
 .about-text {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 280px;
+  gap: 16px;
+  max-width: 260px;
 }
 
 .about-name {
-  font-size: 26px;
+  font-size: 22px;
   font-weight: 500;
   letter-spacing: 0.25em;
   text-transform: uppercase;
@@ -409,10 +465,20 @@ button:hover {
     margin-right: -0.25em;
   }
 
-  /* Menu */
-  .menu-item {
-    font-size: 14px;
-    letter-spacing: 0.22em;
+  /* Menu (Home) */
+  .home-nav {
+    padding: 20px 20px 14px;
+    gap: 20px;
+  }
+
+  .home-main {
+    padding: 0 24px 48px;
+    gap: 24px;
+  }
+
+  .home-couple {
+    width: 140px;
+    height: 176px;
   }
 
   /* Exhibition: 사이드바 → 상단 가로 탭 */
@@ -484,24 +550,36 @@ button:hover {
     bottom: 36px;
   }
 
-  /* About */
-  .about-content {
-    flex-direction: column;
-    gap: 24px;
-    padding: 0 24px;
+  /* About Us */
+  .about-us-content {
+    gap: 32px;
+    padding: 0 20px;
+  }
+
+  .about-person {
+    gap: 20px;
   }
 
   .about-photo {
-    width: 160px;
-    height: 200px;
-  }
-
-  .about-text {
-    align-items: center;
-    text-align: center;
+    width: 100px;
+    height: 125px;
   }
 
   .about-name {
-    font-size: 20px;
+    font-size: 16px;
+  }
+
+  .about-bio {
+    font-size: 11px;
+    line-height: 2;
+  }
+
+  /* Date description 2줄 제한 */
+  .date-description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    white-space: normal;
   }
 }

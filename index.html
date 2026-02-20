@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GS ARCHIVE</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── Landing ──────────────────────────────────────── -->
+  <div id="landing" class="view active"
+       data-bg="assets/bg/landing/bg.png">
+    <p class="landing-title">GS ARCHIVE</p>
+    <button id="enter-btn">입장하기</button>
+  </div>
+
+  <!-- ── Menu ─────────────────────────────────────────── -->
+  <div id="menu-view" class="view"
+       data-bg="assets/bg/menu/bg.png">
+    <nav class="menu-list">
+      <button class="menu-item" data-target="main-view">Exhibition</button>
+      <button class="menu-item" data-target="about-geon">About GEON</button>
+      <button class="menu-item" data-target="about-seungeun">About SeungEun</button>
+    </nav>
+  </div>
+
+  <!-- ── Exhibition: 왼쪽 월 탭 + 날짜 복도 ────────────── -->
+  <div id="main-view" class="view"
+       data-bg="assets/bg/exhibition/bg.png">
+
+    <nav id="month-sidebar">
+      <!-- JS 생성 -->
+    </nav>
+
+    <div id="month-content">
+      <div class="date-corridor">
+        <span class="date-item prev"></span>
+        <span class="date-item current"></span>
+        <span class="date-item next"></span>
+      </div>
+      <div class="content-nav">
+        <button class="nav-prev">←</button>
+        <button class="nav-next">→</button>
+      </div>
+    </div>
+
+    <button class="section-back" data-target="menu-view">← menu</button>
+
+  </div>
+
+  <!-- ── Date view: 전시실 (풀스크린) ───────────────────── -->
+  <div id="date-view" class="view">
+    <!-- data-bg는 JS가 현재 사진으로 동적 교체 -->
+
+    <div class="date-meta">
+      <div class="date-label"></div>
+      <div class="date-title"></div>
+      <div class="date-description"></div>
+    </div>
+
+    <div class="photo-viewer">
+      <img id="current-photo" src="" alt="" />
+    </div>
+
+    <div class="photo-nav">
+      <button class="nav-prev">←</button>
+      <span class="photo-id"></span>
+      <button class="nav-next">→</button>
+    </div>
+
+    <button id="back-btn">← back</button>
+
+  </div>
+
+  <!-- ── About GEON ────────────────────────────────────── -->
+  <div id="about-geon" class="view about-view"
+       data-bg="assets/bg/geon/bg.png">
+    <div class="about-content">
+      <img class="about-photo" src="" alt="GEON" />
+      <div class="about-text">
+        <p class="about-name"></p>
+        <p class="about-bio"></p>
+      </div>
+    </div>
+    <button class="section-back" data-target="menu-view">← menu</button>
+  </div>
+
+  <!-- ── About SeungEun ────────────────────────────────── -->
+  <div id="about-seungeun" class="view about-view"
+       data-bg="assets/bg/seungeun/bg.png">
+    <div class="about-content">
+      <img class="about-photo" src="" alt="SEUNGEUN" />
+      <div class="about-text">
+        <p class="about-name"></p>
+        <p class="about-bio"></p>
+      </div>
+    </div>
+    <button class="section-back" data-target="menu-view">← menu</button>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

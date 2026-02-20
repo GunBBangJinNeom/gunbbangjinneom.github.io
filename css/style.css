@@ -1,0 +1,395 @@
+/* ─── Reset ─────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ─── Base ───────────────────────────────────── */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #161616;
+  color: #c8c8c8;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+}
+
+/* ─── View layer ──────────────────────────────── */
+.view {
+  display: none;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+
+.view.active {
+  display: flex;
+  animation: fadeIn 340ms ease;
+}
+
+/* ─── Background layer ────────────────────────── */
+.view-bg {
+  position: absolute;
+  inset: 0;
+  transform: scale(1.08); /* blur 엣지 아티팩트 방지 */
+  background-size: cover;
+  background-position: center;
+  filter: blur(14px) brightness(0.32) saturate(0.6);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* 배경 위에 모든 콘텐츠가 올라오도록 */
+.view > *:not(.view-bg) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Landing ─────────────────────────────────── */
+#landing {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 52px;
+}
+
+.landing-title {
+  font-size: 50px;
+  font-weight: 300;
+  letter-spacing: 0.6em;
+  text-transform: uppercase;
+  color: #d0d0d0;
+}
+
+#enter-btn {
+  font-size: 25px;
+  letter-spacing: 0.35em;
+  color: #c8c8c8;
+  opacity: 0.38;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 0;
+  transition: opacity 300ms ease;
+}
+
+#enter-btn:hover {
+  opacity: 0.88;
+}
+
+/* ─── Menu view ──────────────────────────────── */
+#menu-view {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.menu-item {
+  font-size: 16px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.35;
+  padding: 0;
+  transition: opacity 220ms ease;
+}
+
+.menu-item:hover {
+  opacity: 1;
+}
+
+/* ─── Section back button ─────────────────────── */
+.section-back {
+  position: fixed;
+  top: 18px;
+  left: 22px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+/* ─── About view ──────────────────────────────── */
+.about-view {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 56px;
+}
+
+.about-photo {
+  width: 240px;
+  height: 300px;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  flex-shrink: 0;
+  opacity: 0.88;
+}
+
+.about-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 280px;
+}
+
+.about-name {
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #e0e0e0;
+}
+
+.about-bio {
+  font-size: 12px;
+  opacity: 0.5;
+  line-height: 2.2;
+  letter-spacing: 0.06em;
+  white-space: pre-line;
+}
+
+/* ─── Mobile: about 세로 전환 ─────────────────── */
+@media (max-width: 600px) {
+  .about-content {
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .about-photo {
+    width: 160px;
+    height: 200px;
+  }
+
+  .about-text {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* ─── Main view ───────────────────────────────── */
+#main-view {
+  flex-direction: row;
+}
+
+/* ─── Month sidebar ───────────────────────────── */
+#month-sidebar {
+  width: 116px;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 28px;
+  gap: 24px;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+#month-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+.month-tab {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  opacity: 0.22;
+  cursor: pointer;
+  transition: opacity 200ms ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.month-tab.active {
+  opacity: 0.9;
+}
+
+.month-tab:hover:not(.active) {
+  opacity: 0.5;
+}
+
+/* ─── Month content ───────────────────────────── */
+#month-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* ─── Date corridor ───────────────────────────── */
+.date-corridor {
+  display: flex;
+  align-items: center;
+  gap: 52px;
+}
+
+.date-item {
+  white-space: nowrap;
+  user-select: none;
+  transition: opacity 200ms ease;
+}
+
+.date-item.prev,
+.date-item.next {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  opacity: 0.18;
+}
+
+.date-item.current {
+  font-size: 17px;
+  letter-spacing: 0.18em;
+  opacity: 0.88;
+  cursor: pointer;
+}
+
+.date-item.current:hover {
+  opacity: 1;
+}
+
+/* ─── Content nav ─────────────────────────────── */
+.content-nav {
+  position: absolute;
+  bottom: 48px;
+  display: flex;
+  gap: 28px;
+}
+
+/* ─── Date view ───────────────────────────────── */
+#date-view {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.date-meta {
+  position: fixed;
+  top: 48px;
+  text-align: center;
+}
+
+.date-label {
+  font-size: 11px;
+  opacity: 0.32;
+  letter-spacing: 0.2em;
+  margin-bottom: 10px;
+}
+
+.date-title {
+  font-size: 17px;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+
+.date-description {
+  font-size: 12px;
+  opacity: 0.45;
+  line-height: 2;
+  letter-spacing: 0.06em;
+  white-space: pre-line;
+}
+
+/* ─── Photo viewer ────────────────────────────── */
+.photo-viewer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#current-photo {
+  max-width: 64vw;
+  max-height: 64vh;
+  object-fit: contain;
+  display: block;
+  opacity: 1;
+  transition: opacity 240ms ease;
+}
+
+#current-photo.fading {
+  opacity: 0;
+}
+
+/* ─── Photo nav ───────────────────────────────── */
+.photo-nav {
+  position: fixed;
+  bottom: 48px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.photo-id {
+  font-size: 11px;
+  opacity: 0.32;
+  letter-spacing: 0.16em;
+}
+
+/* ─── Buttons ─────────────────────────────────── */
+button {
+  background: none;
+  border: none;
+  color: #c8c8c8;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  opacity: 0.38;
+  padding: 4px 8px;
+  transition: opacity 200ms ease;
+}
+
+button:hover {
+  opacity: 1;
+}
+
+#back-btn {
+  position: fixed;
+  top: 18px;
+  left: 22px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+
+/* ─── Fade animation ──────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── Mobile ──────────────────────────────────── */
+@media (max-width: 600px) {
+  #month-sidebar {
+    width: 84px;
+    padding: 0 18px;
+    gap: 20px;
+  }
+
+  .month-tab {
+    font-size: 11px;
+  }
+
+  #current-photo {
+    max-width: 90vw;
+    max-height: 55vh;
+  }
+
+  .date-corridor {
+    gap: 28px;
+  }
+}

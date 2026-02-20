@@ -371,12 +371,12 @@ button:hover {
 
   /* Landing */
   .landing-title {
-    font-size: 32px;
-    letter-spacing: 0.4em;
+    font-size: 22px;
+    letter-spacing: 0.28em;
   }
 
   #enter-btn {
-    font-size: 14px;
+    font-size: 13px;
   }
 
   /* Menu */

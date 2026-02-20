@@ -468,7 +468,13 @@ button:hover {
   /* Menu (Home) */
   .home-nav {
     padding: 20px 20px 14px;
-    gap: 20px;
+    gap: 16px;
+  }
+
+  .home-title {
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    margin-right: -0.25em;
   }
 
   .home-main {

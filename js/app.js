@@ -85,12 +85,16 @@ function onMonthChange() {
 // ─── Date corridor ─────────────────────────────────────────────────────────
 
 function updateDatesForMonth() {
-  const month  = currentMonth();
-  const byDate = groupPhotosByDate(
-    state.allPhotos.filter(p => parseDateFromFilename(p.filename).month === month)
-  );
-  state.dates     = Object.keys(byDate).sort();
+  const month = currentMonth();
+  state.dates = state.gallery
+    .filter(e => e.date.slice(0, 6) === month)
+    .map(e => e.date)
+    .sort();
   state.dateIndex = 0;
+}
+
+function getEntry(date) {
+  return state.gallery.find(e => e.date === date) || null;
 }
 
 function renderDateCorridor() {
@@ -98,12 +102,24 @@ function renderDateCorridor() {
   const currEl = document.querySelector('.date-item.current');
   const nextEl = document.querySelector('.date-item.next');
 
-  prevEl.textContent = state.dates[state.dateIndex - 1]
-    ? formatDate(state.dates[state.dateIndex - 1]) : '';
-  currEl.textContent = state.dates[state.dateIndex]
-    ? formatDate(state.dates[state.dateIndex]) : '';
-  nextEl.textContent = state.dates[state.dateIndex + 1]
-    ? formatDate(state.dates[state.dateIndex + 1]) : '';
+  const prevDate = state.dates[state.dateIndex - 1];
+  const currDate = state.dates[state.dateIndex];
+  const nextDate = state.dates[state.dateIndex + 1];
+
+  prevEl.textContent = prevDate ? formatDate(prevDate) : '';
+  nextEl.textContent = nextDate ? formatDate(nextDate) : '';
+
+  // 썸네일 + 날짜 텍스트
+  const entry = currDate ? getEntry(currDate) : null;
+  const thumb = currEl.querySelector('.corridor-thumb');
+  const label = currEl.querySelector('.corridor-date');
+
+  if (thumb) {
+    const src = entry?.photos?.[0] ? `photos/${entry.photos[0]}` : '';
+    thumb.src = src;
+    thumb.style.visibility = src ? 'visible' : 'hidden';
+  }
+  if (label) label.textContent = currDate ? formatDate(currDate) : '';
 }
 
 function moveNextDate() {
@@ -130,17 +146,17 @@ function enterDate() {
   const date = currentDate();
   if (!date) return;
 
-  const byDate = groupPhotosByDate(state.allPhotos);
-  state.photos     = (byDate[date] || []).slice();
+  const entry = getEntry(date);
+  if (!entry) return;
+
+  state.photos     = entry.photos || [];
   state.photoIndex = 0;
 
-  const meta = state.photos[0] || {};
   document.querySelector('.date-label').textContent       = formatDate(date);
-  document.querySelector('.date-title').textContent       = meta.title || '';
-  document.querySelector('.date-description').textContent = meta.description || '';
+  document.querySelector('.date-title').textContent       = entry.title || '';
+  document.querySelector('.date-description').textContent = entry.description || '';
 
-  const firstPhoto = state.photos[0];
-  setDateViewBg(firstPhoto ? `photos/${firstPhoto.filename}` : null);
+  setDateViewBg(state.photos[0] ? `photos/${state.photos[0]}` : null);
 
   renderPhoto();
   showView('date-view');
@@ -153,15 +169,15 @@ document.querySelector('.date-item.current').addEventListener('click', () => {
 // ─── Photo viewer ───────────────────────────────────────────────────────────
 
 function renderPhoto() {
-  const photo = currentPhoto();
-  if (!photo) return;
+  const filename = currentPhoto();
+  if (!filename) return;
 
   const img  = document.getElementById('current-photo');
-  const info = parseDateFromFilename(photo.filename);
+  const info = parseDateFromFilename(filename);
 
   img.classList.add('fading');
   setTimeout(() => {
-    img.src = `photos/${photo.filename}`;
+    img.src = `photos/${filename}`;
     img.alt = info.id;
     document.querySelector('.photo-id').textContent = info.id;
     img.classList.remove('fading');
@@ -270,12 +286,10 @@ fetch('data/about.json')
 fetch('data/gallery.json')
   .then(r => r.json())
   .then(data => {
-    state.allPhotos = data.sort((a, b) =>
-      parseDateFromFilename(a.filename).date.localeCompare(parseDateFromFilename(b.filename).date)
-    );
+    state.gallery = data.sort((a, b) => a.date.localeCompare(b.date));
 
-    const byMonth   = groupPhotosByMonth(state.allPhotos);
-    state.months    = Object.keys(byMonth).sort();
+    const monthSet   = new Set(state.gallery.map(e => e.date.slice(0, 6)));
+    state.months     = [...monthSet].sort();
     state.monthIndex = 0;
 
     updateDatesForMonth();

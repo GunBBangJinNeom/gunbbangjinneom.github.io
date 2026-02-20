@@ -245,14 +245,36 @@ html, body {
 }
 
 .date-item.current {
-  font-size: 17px;
-  letter-spacing: 0.18em;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
   opacity: 0.88;
   cursor: pointer;
+  transition: opacity 200ms ease;
 }
 
 .date-item.current:hover {
   opacity: 1;
+}
+
+.corridor-thumb {
+  width: 240px;
+  height: 300px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  opacity: 0.75;
+  transition: opacity 240ms ease;
+}
+
+.date-item.current:hover .corridor-thumb {
+  opacity: 1;
+}
+
+.corridor-date {
+  font-size: 13px;
+  letter-spacing: 0.16em;
 }
 
 /* ─── Content nav ─────────────────────────────── */
@@ -403,7 +425,7 @@ button:hover {
     height: auto;
     flex-direction: row;
     justify-content: center;
-    padding: 18px 20px 0;
+    padding: 48px 20px 14px;
     gap: 20px;
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
@@ -424,8 +446,13 @@ button:hover {
     gap: 24px;
   }
 
-  .date-item.current {
-    font-size: 15px;
+  .corridor-thumb {
+    width: 160px;
+    height: 200px;
+  }
+
+  .corridor-date {
+    font-size: 12px;
   }
 
   .date-item.prev,

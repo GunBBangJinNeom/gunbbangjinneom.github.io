@@ -1,7 +1,13 @@
 [
   {
-    "filename": "20260221-01.jpg",
-    "title": "example title",
-    "description": "example description"
+    "date": "20260221",
+    "title": "레전드 타코야끼 만들기",
+    "description": "홍대 도란도란에서 인생 첫 타코야끼를 만들었다. 성은이는 너무 잘 만들어서 내 꺼까지 같이 도와줬다. 망한 타코야끼 살려줘서 고마워 성은아",
+    "photos": [
+      "20260221-01.png",
+      "20260221-02.png",
+      "20260221-03.png",
+      "20260221-04.png"
+    ]
   }
 ]

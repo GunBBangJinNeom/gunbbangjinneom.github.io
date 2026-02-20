@@ -34,11 +34,11 @@ html, body {
 .view-bg {
   position: absolute;
   inset: 0;
-  transform: scale(1.08); /* blur 엣지 아티팩트 방지 */
+  transform: scale(1.08);
   background-size: cover;
   background-position: center;
   filter: blur(14px) brightness(0.32) saturate(0.6);
-  z-index: -1; /* 콘텐츠는 자연 스택 순서로 위에 올라옴 */
+  z-index: -1;
   pointer-events: none;
 }
 
@@ -54,6 +54,8 @@ html, body {
   font-size: 50px;
   font-weight: 300;
   letter-spacing: 0.6em;
+  /* letter-spacing 마지막 자 보정 */
+  margin-right: -0.6em;
   text-transform: uppercase;
   color: #d0d0d0;
 }
@@ -61,6 +63,7 @@ html, body {
 #enter-btn {
   font-size: 25px;
   letter-spacing: 0.35em;
+  margin-right: -0.35em;
   color: #c8c8c8;
   opacity: 0.38;
   background: none;
@@ -72,6 +75,16 @@ html, body {
 
 #enter-btn:hover {
   opacity: 0.88;
+}
+
+/* 버전 태그 */
+.version-tag {
+  position: absolute;
+  bottom: 22px;
+  right: 26px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  opacity: 0.22;
 }
 
 /* ─── Menu view ──────────────────────────────── */
@@ -102,8 +115,10 @@ html, body {
 }
 
 /* ─── Section back button ─────────────────────── */
+/* position: absolute — .view(position:fixed)가 containing block
+   flex flow에서 완전히 제거되어 레이아웃 밀림 없음 */
 .section-back {
-  position: fixed;
+  position: absolute;
   top: 18px;
   left: 22px;
   font-size: 11px;
@@ -155,24 +170,6 @@ html, body {
   line-height: 2.2;
   letter-spacing: 0.06em;
   white-space: pre-line;
-}
-
-/* ─── Mobile: about 세로 전환 ─────────────────── */
-@media (max-width: 600px) {
-  .about-content {
-    flex-direction: column;
-    gap: 28px;
-  }
-
-  .about-photo {
-    width: 160px;
-    height: 200px;
-  }
-
-  .about-text {
-    align-items: center;
-    text-align: center;
-  }
 }
 
 /* ─── Main view ───────────────────────────────── */
@@ -274,9 +271,12 @@ html, body {
 }
 
 .date-meta {
-  position: fixed;
+  position: absolute;
   top: 48px;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
+  white-space: nowrap;
 }
 
 .date-label {
@@ -322,7 +322,7 @@ html, body {
 
 /* ─── Photo nav ───────────────────────────────── */
 .photo-nav {
-  position: fixed;
+  position: absolute;
   bottom: 48px;
   display: flex;
   align-items: center;
@@ -353,7 +353,7 @@ button:hover {
 }
 
 #back-btn {
-  position: fixed;
+  position: absolute;
   top: 18px;
   left: 22px;
   font-size: 11px;
@@ -366,17 +366,25 @@ button:hover {
   to   { opacity: 1; }
 }
 
-/* ─── Mobile ──────────────────────────────────── */
+/* ─── Mobile (≤ 600px) ────────────────────────── */
 @media (max-width: 600px) {
 
   /* Landing */
+  #landing {
+    padding: 0 28px;
+    gap: 40px;
+  }
+
   .landing-title {
-    font-size: 22px;
-    letter-spacing: 0.28em;
+    font-size: 20px;
+    letter-spacing: 0.2em;
+    margin-right: -0.2em;
   }
 
   #enter-btn {
     font-size: 13px;
+    letter-spacing: 0.25em;
+    margin-right: -0.25em;
   }
 
   /* Menu */
@@ -385,7 +393,7 @@ button:hover {
     letter-spacing: 0.22em;
   }
 
-  /* Exhibition: 사이드바 상단 가로 바로 전환 */
+  /* Exhibition: 사이드바 → 상단 가로 탭 */
   #main-view {
     flex-direction: column;
   }
@@ -406,7 +414,6 @@ button:hover {
 
   .month-tab {
     font-size: 11px;
-    white-space: nowrap;
   }
 
   #month-content {
@@ -429,6 +436,8 @@ button:hover {
   /* Date view */
   .date-meta {
     top: 36px;
+    white-space: normal;
+    width: calc(100% - 48px);
   }
 
   .date-title {

@@ -242,6 +242,14 @@ document.querySelector('.photo-nav .nav-next').addEventListener('click', moveNex
 
 document.getElementById('back-btn').addEventListener('click', () => showView('main-view'));
 
+// ─── Version ───────────────────────────────────────────────────────────────
+
+fetch('data/version.json')
+  .then(r => r.json())
+  .then(data => {
+    document.querySelector('.version-tag').textContent = data.version;
+  });
+
 // ─── About ─────────────────────────────────────────────────────────────────
 
 fetch('data/about.json')

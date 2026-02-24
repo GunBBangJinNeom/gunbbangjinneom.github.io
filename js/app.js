@@ -26,10 +26,62 @@ function showView(id) {
   document.getElementById(id).classList.add('active');
 }
 
+// ─── Password Modal ─────────────────────────────────────────────────────────
+
+const PW_HASH = '2f1987bf98c09d2f5d2a23a6ae29fa53b9aec8f07ed1330bd439122f5a1a2c2c';
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+function openPasswordModal() {
+  const modal = document.getElementById('pw-modal');
+  const input = document.getElementById('pw-input');
+  modal.classList.add('active');
+  input.value = '';
+  document.getElementById('pw-error').classList.remove('visible');
+  setTimeout(() => input.focus(), 50);
+}
+
+function closePasswordModal() {
+  document.getElementById('pw-modal').classList.remove('active');
+}
+
+async function submitPassword() {
+  const input = document.getElementById('pw-input');
+  const hash = await sha256(input.value);
+
+  if (hash === PW_HASH) {
+    sessionStorage.setItem('gsauth', '1');
+    closePasswordModal();
+    showView('menu-view');
+  } else {
+    const box = document.getElementById('pw-box');
+    const err = document.getElementById('pw-error');
+    err.textContent = 'incorrect';
+    err.classList.add('visible');
+    box.classList.remove('shake');
+    void box.offsetWidth;
+    box.classList.add('shake');
+    input.value = '';
+    setTimeout(() => input.focus(), 50);
+  }
+}
+
+document.getElementById('pw-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitPassword();
+  if (e.key === 'Escape') closePasswordModal();
+});
+
 // ─── Landing ───────────────────────────────────────────────────────────────
 
 document.getElementById('enter-btn').addEventListener('click', () => {
-  showView('menu-view');
+  if (sessionStorage.getItem('gsauth') === '1') {
+    showView('menu-view');
+  } else {
+    openPasswordModal();
+  }
 });
 
 // ─── Menu (Home nav) ───────────────────────────────────────────────────────

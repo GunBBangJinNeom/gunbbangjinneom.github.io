@@ -438,6 +438,80 @@ button:hover {
   letter-spacing: 0.14em;
 }
 
+/* ─── Password Modal ──────────────────────────── */
+#pw-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(22, 22, 22, 0.94);
+  backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 240ms ease;
+}
+
+#pw-modal.active {
+  display: flex;
+}
+
+#pw-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+#pw-label {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  opacity: 0.35;
+  text-transform: uppercase;
+}
+
+#pw-input {
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  color: #c8c8c8;
+  font-size: 24px;
+  letter-spacing: 0.5em;
+  text-align: center;
+  width: 160px;
+  padding: 6px 0;
+  outline: none;
+  transition: border-color 200ms ease;
+}
+
+#pw-input:focus {
+  border-bottom-color: rgba(255, 255, 255, 0.55);
+}
+
+#pw-error {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: #c87070;
+  opacity: 0;
+  transition: opacity 200ms ease;
+  height: 1em;
+}
+
+#pw-error.visible {
+  opacity: 1;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-8px); }
+  40%       { transform: translateX(8px); }
+  60%       { transform: translateX(-5px); }
+  80%       { transform: translateX(5px); }
+}
+
+#pw-box.shake {
+  animation: shake 350ms ease;
+}
+
 /* ─── Fade animation ──────────────────────────── */
 @keyframes fadeIn {
   from { opacity: 0; }
